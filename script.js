@@ -1,33 +1,21 @@
 // Function to format numbers with commas
 function formatNumberWithCommas(number) {
-    return number.toLocaleString('en-US');
+    return number.toLocaleString();
 }
 
-// Function to remove commas from a formatted string (for internal calculations)
-function removeCommas(numberString) {
-    return numberString.replace(/,/g, '');
-}
-
-// Event listener for formatting input fields
-function formatInput(event) {
-    const input = event.target;
-    const value = input.value;
-
-    // Remove existing commas to handle cases where the user modifies a formatted number
-    const plainNumber = removeCommas(value);
-
-    // Convert to number and back to string with commas
-    if (!isNaN(plainNumber) && plainNumber !== '') {
-        input.value = formatNumberWithCommas(Number(plainNumber));
+// Function to handle the real-time formatting of the input fields
+function formatInputField(inputField) {
+    let value = inputField.value.replace(/,/g, ''); // Remove existing commas
+    if (!isNaN(value) && value !== '') {
+        inputField.value = formatNumberWithCommas(parseFloat(value)); // Format and set the value with commas
     }
 }
 
-// Calculation function
 function calculateConversion() {
-    // Get the values from the input fields (removing commas for internal calculations)
-    const dollarAmount = parseFloat(removeCommas(document.getElementById('dollarAmount').value));
-    const kipAmount = parseFloat(removeCommas(document.getElementById('kipAmount').value));
-    const totalDollar = parseFloat(removeCommas(document.getElementById('totalDollar').value));
+    // Get the input values, removing commas for calculation
+    const dollarAmount = parseFloat(document.getElementById('dollarAmount').value.replace(/,/g, ''));
+    const kipAmount = parseFloat(document.getElementById('kipAmount').value.replace(/,/g, ''));
+    const totalDollar = parseFloat(document.getElementById('totalDollar').value.replace(/,/g, ''));
 
     // Validate the inputs
     if (isNaN(dollarAmount) || isNaN(kipAmount) || isNaN(totalDollar) || dollarAmount <= 0 || kipAmount <= 0 || totalDollar <= 0) {
@@ -46,7 +34,13 @@ function calculateConversion() {
     document.getElementById('result').innerHTML = `With ${formatNumberWithCommas(totalDollar)} USD, you will get <strong>${formattedKip}</strong> Kip.`;
 }
 
-// Add event listeners to input fields for formatting
-document.getElementById('dollarAmount').addEventListener('input', formatInput);
-document.getElementById('kipAmount').addEventListener('input', formatInput);
-document.getElementById('totalDollar').addEventListener('input', formatInput);
+// Add event listeners to format the input fields as the user types
+document.getElementById('dollarAmount').addEventListener('input', function() {
+    formatInputField(this);
+});
+document.getElementById('kipAmount').addEventListener('input', function() {
+    formatInputField(this);
+});
+document.getElementById('totalDollar').addEventListener('input', function() {
+    formatInputField(this);
+});
