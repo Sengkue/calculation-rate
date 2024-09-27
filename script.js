@@ -14,6 +14,9 @@ function calculateConversion() {
     const kipPerDollar = kipAmount / dollarAmount;
     const totalKip = kipPerDollar * totalDollar;
 
+    // Format the result with commas
+    const formattedKip = totalKip.toLocaleString();
+
     // Display the result
-    document.getElementById('result').innerHTML = `With ${totalDollar} USD, you will get <strong>${totalKip}</strong> Kip.`;
+    document.getElementById('result').innerHTML = `With ${totalDollar} USD, you will get <strong>${formattedKip}</strong> Kip.`;
 }
