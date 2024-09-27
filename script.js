@@ -1,13 +1,13 @@
 // Function to format numbers with commas
 function formatNumberWithCommas(number) {
-    return number.toLocaleString();
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
 // Function to handle the real-time formatting of the input fields
 function formatInputField(inputField) {
     let value = inputField.value.replace(/,/g, ''); // Remove existing commas
     if (!isNaN(value) && value !== '') {
-        inputField.value = formatNumberWithCommas(parseFloat(value)); // Format and set the value with commas
+        inputField.value = formatNumberWithCommas(value); // Format and set the value with commas
     }
 }
 
