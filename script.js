@@ -1,17 +1,19 @@
-function calculate() {
-    // Get the values from the input fields
-    const unitPrice = parseFloat(document.getElementById('unitPrice').value);
-    const totalAmount = parseFloat(document.getElementById('totalAmount').value);
+function calculateConversion() {
+    // Get the input values
+    const dollarAmount = parseFloat(document.getElementById('dollarAmount').value);
+    const kipAmount = parseFloat(document.getElementById('kipAmount').value);
+    const totalDollar = parseFloat(document.getElementById('totalDollar').value);
 
-    // Check if the inputs are valid numbers
-    if (isNaN(unitPrice) || isNaN(totalAmount) || unitPrice <= 0 || totalAmount <= 0) {
+    // Validate the inputs
+    if (isNaN(dollarAmount) || isNaN(kipAmount) || isNaN(totalDollar) || dollarAmount <= 0 || kipAmount <= 0 || totalDollar <= 0) {
         document.getElementById('result').innerHTML = 'Please enter valid positive numbers.';
         return;
     }
 
-    // Calculate the total quantity of items
-    const totalQuantity = (totalAmount / 1) * unitPrice;
+    // Calculate the conversion
+    const kipPerDollar = kipAmount / dollarAmount;
+    const totalKip = kipPerDollar * totalDollar;
 
     // Display the result
-    document.getElementById('result').innerHTML = `You can buy <strong>${totalQuantity}</strong> eggs for $${totalAmount}.`;
+    document.getElementById('result').innerHTML = `With ${totalDollar} USD, you will get <strong>${totalKip}</strong> Kip.`;
 }
